@@ -19,7 +19,7 @@ function getOutput(messageCode) {
   if (messageCode == null) {
     console.log("You didn't enter a value.")
   } else {
-    //console.log("You entered: ", messageCode.toString());
+    readFromFile(messageCode);
   }
 }
 
@@ -35,13 +35,17 @@ function algorithm(userInput) {
     }
   }
 
-  count = ((count / length) % 26) + 1;
+  count = ((count / length) % 26);
 
   return Math.floor(count);
 }
 
-const messages = {
-  numberId:0,
+function readFromFile(messageCode) {
+  const fs = require('fs');
+
+    const messages = fs.readFileSync('messages.txt', 'utf8').split('\n').map(line => line.trim());
+
+    console.log("Your message can be described as:", messages[messageCode]);
 }
 
 getInput();
