@@ -19,9 +19,14 @@ function algorithm(userInput) {
   let count = 0;
 
   for (let i = 0; i < length; i++) {
-    if (userInput[i] == ' ') {
-      continue;
-    } else {
+
+    if (typeof userInput != 'string') {
+      console.log("Invalid input: ", userInput, "\nShould be a string. \nTry again.");
+      getInput();
+    }
+
+
+    if (userInput[i] != ' ') {
       count += userInput.charCodeAt(i);
     }
   }
