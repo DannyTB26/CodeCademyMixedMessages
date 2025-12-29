@@ -1,7 +1,17 @@
 function getInput() {
-  let userInput = "test"; //prompt('Enter a message: ', null);
 
-  getOutput(algorithm(userInput));
+  const userInput = require('readline');
+  const reader = userInput.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  reader.question("Please enter a message: ", value => {
+    //console.log("You entered: ", value);
+    //console.log(typeof value);
+    getOutput(algorithm(value));
+    reader.close();
+  });
 }
 
 function getOutput(messageCode) {
@@ -9,7 +19,7 @@ function getOutput(messageCode) {
   if (messageCode == null) {
     console.log("You didn't enter a value.")
   } else {
-    console.log("You entered: ", messageCode.toString());
+    //console.log("You entered: ", messageCode.toString());
   }
 }
 
@@ -20,20 +30,12 @@ function algorithm(userInput) {
 
   for (let i = 0; i < length; i++) {
 
-    if (typeof userInput != 'string') {
-      console.log("Invalid input: ", userInput, "\nShould be a string. \nTry again.");
-      getInput();
-    }
-
-
     if (userInput[i] != ' ') {
       count += userInput.charCodeAt(i);
     }
   }
 
-  count /= length;
-
-  count %= 26;
+  count = ((count / length) % 26) + 1;
 
   return Math.floor(count);
 }
